@@ -25,10 +25,7 @@ val checkTestCase by tasks.registering {
     doLast {
         val content = project.buildDir.resolve("./tmp/kapt3/stubs/main/net/octyl/kiavi/FooProvider.java")
                 .readLines().joinToString("\n")
-        if ("""
-            public abstract void setTheFoo(@org.jetbrains.annotations.NotNull()
-    java.lang.String p0);
-        """.trim() !in content) {
+        if ("public abstract void setTheFoo(" !in content) {
             throw IllegalStateException("No setter generated in stub, test case fails.")
         }
     }
